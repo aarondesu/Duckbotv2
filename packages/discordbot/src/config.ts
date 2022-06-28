@@ -1,10 +1,11 @@
 import dotenv from 'dotenv';
 import path from 'node:path';
 
-// Initialize dotenv
-dotenv.config({
-  path: path.resolve(__dirname, '../../../', '.env'),
-});
+if (process.env.NODE_ENV === 'development') {
+  dotenv.config({
+    path: path.resolve(__dirname, '../../../', '.env'),
+  });
+}
 
 export const token: string = process.env.DISCORD_TOKEN;
 export const appId: string = process.env.DISCORD_APP_ID;

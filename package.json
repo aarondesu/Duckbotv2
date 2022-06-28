@@ -5,11 +5,15 @@
   "workspaces": [
     "packages/*"
   ],
+  "engines": {
+    "node": "18.x"
+  },
   "scripts": {
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
     "format": "prettier --write .",
     "build": "yarn workspaces foreach run build",
-    "start": "yarn workspace @duckbot/discordbot run start"
+    "start": "yarn workspace @duckbot/discordbot run start",
+    "start:dev": "yarn workspace @duckbot/discordbot run start:dev"
   },
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^5.29.0",

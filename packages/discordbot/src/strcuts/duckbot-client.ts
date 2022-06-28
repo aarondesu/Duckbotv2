@@ -16,11 +16,7 @@ export default class DuckbotClient extends Client {
 
   constructor() {
     super({
-      intents: [
-        Intents.FLAGS.GUILDS,
-        Intents.FLAGS.GUILD_MESSAGES,
-        Intents.FLAGS.GUILD_PRESENCES,
-      ],
+      intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES, Intents.FLAGS.GUILD_PRESENCES],
       partials: ['CHANNEL', 'MESSAGE', 'REACTION', 'REACTION'],
     });
 
@@ -29,15 +25,9 @@ export default class DuckbotClient extends Client {
   }
 
   init() {
-    const commandHandler = new CommandHandler(
-      this,
-      path.resolve(__dirname, '..', 'commands'),
-    );
+    const commandHandler = new CommandHandler(this, path.resolve(__dirname, '..', 'commands'));
 
-    const eventHandler = new EventHandler(
-      this,
-      path.resolve(__dirname, '..', 'events'),
-    );
+    const eventHandler = new EventHandler(this, path.resolve(__dirname, '..', 'events'));
 
     eventHandler.setHandlerAsEmitter(commandHandler);
 
@@ -54,13 +44,9 @@ export default class DuckbotClient extends Client {
     for (const [name, handler] of this.handlers) {
       try {
         handler.loadModules();
-        this.logger.info(
-          `Loaded ${handler.modules.size} modules for ${handler.id}`,
-        );
+        this.logger.info(`Loaded ${handler.modules.size} modules for ${handler.id}`);
       } catch ({ stack }) {
-        throw new Error(
-          `Error loading module ${name}. Reason: \n${stack as string}`,
-        );
+        throw new Error(`Error loading module ${name}. Reason: \n${stack as string}`);
         return;
       }
     }

@@ -40,12 +40,14 @@ export default class CommandHandler extends DuckbotHandler {
 
     const rest = new REST({ version: '9' }).setToken(token);
 
-    await rest
-      .put(Routes.applicationGuildCommands(clientid, guildId), {
-        body: commands,
-      })
-      .then(() => this.client.logger.info('Successfully registered application commands!'))
-      .catch(({ stack }) => this.client.logger.error(`\n${stack as string}`));
+    if (process.env.NODE_ENV === 'development') {
+      await rest
+        .put(Routes.applicationGuildCommands(clientid, guildId), {
+          body: commands,
+        })
+        .then(() => this.client.logger.info('Successfully registered application commands!'))
+        .catch(({ stack }) => this.client.logger.error(`\n${stack as string}`));
+    }
   }
 
   async handleCommands(interaction: Interaction) {

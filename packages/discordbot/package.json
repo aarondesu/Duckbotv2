@@ -5,7 +5,8 @@
   "scripts": {
     "clean": "npx rimraf dist",
     "build": "yarn clean && tsc --build",
-    "start": "node ."
+    "start:dev": "cross-env NODE_ENV=development node .",
+    "start": "cross-env NODE_ENV=production node ."
   },
   "dependencies": {
     "@discordjs/builders": "^0.15.0",
