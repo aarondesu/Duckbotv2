@@ -10,15 +10,11 @@ export default class CommandModule extends DuckbotModule {
 
   permission: bigint;
 
-  data:
-  | SlashCommandNumberOption
-  | Omit<SlashCommandBuilder, 'addSubcommand' | 'addSubcommandGroup'>;
+  data: SlashCommandNumberOption | Omit<SlashCommandBuilder, 'addSubcommand' | 'addSubcommandGroup'>;
 
   constructor(
     id: string,
-    data?:
-    | SlashCommandNumberOption
-    | Omit<SlashCommandBuilder, 'addSubcommand' | 'addSubcommandGroup'>,
+    data?: SlashCommandNumberOption | Omit<SlashCommandBuilder, 'addSubcommand' | 'addSubcommandGroup'>,
   ) {
     super(id);
 
