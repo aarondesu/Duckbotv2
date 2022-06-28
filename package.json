@@ -10,8 +10,8 @@
   },
   "scripts": {
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
-    "format": "prettier --write .",
-    "build": "yarn workspaces foreach run build",
+    "format": "yarn lint --fix .",
+    "build": "yarn format && yarn workspaces foreach run build",
     "start": "yarn workspace @duckbot/discordbot run start",
     "start:dev": "yarn workspace @duckbot/discordbot run start:dev"
   },
