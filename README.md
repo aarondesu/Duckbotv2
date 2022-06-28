@@ -11,4 +11,5 @@ yarn start
 
 ## TODO
 
-- Dashboard
+- [] Webhook Error reporting
+- [] Dashboard
