@@ -44,7 +44,7 @@ export default class DuckbotClient extends Client {
     for (const [name, handler] of this.handlers) {
       try {
         handler.loadModules();
-        this.logger.info(`Loaded ${handler.modules.size} modules for ${handler.id}`);
+        this.logger.info(`Loaded ${handler.modules.size} modules for ${handler.constructor.name}`);
       } catch ({ stack }) {
         throw new Error(`Error loading module ${name}. Reason: \n${stack as string}`);
         return;

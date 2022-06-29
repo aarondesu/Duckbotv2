@@ -3,7 +3,7 @@ import { CommandInteraction, MessageEmbed } from 'discord.js';
 
 import CommandModule from '../strcuts/modules/command-module';
 
-export default class TestCommand extends CommandModule {
+export default class InfoCommand extends CommandModule {
   constructor() {
     super('info', new SlashCommandBuilder().setName('info').setDescription('Ping pong command'));
   }

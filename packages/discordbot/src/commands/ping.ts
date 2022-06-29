@@ -4,14 +4,9 @@ import { CommandInteraction } from 'discord.js';
 
 import CommandModule from '../strcuts/modules/command-module';
 
-export default class TestCommand extends CommandModule {
+export default class PingCommand extends CommandModule {
   constructor() {
-    super(
-      'ping',
-      new SlashCommandBuilder()
-        .setName('ping')
-        .setDescription('Ping pong command'),
-    );
+    super('ping', new SlashCommandBuilder().setName('ping').setDescription('Ping pong command'));
   }
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
