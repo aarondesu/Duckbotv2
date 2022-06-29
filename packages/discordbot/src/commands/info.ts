@@ -5,7 +5,7 @@ import CommandModule from '../strcuts/modules/command-module';
 
 export default class InfoCommand extends CommandModule {
   constructor() {
-    super('info', new SlashCommandBuilder().setName('info').setDescription('Ping pong command'));
+    super('info', new SlashCommandBuilder().setName('info').setDescription('Information about the bot'));
   }
 
   async exec(interaction: CommandInteraction): Promise<void> {

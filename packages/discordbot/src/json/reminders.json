@@ -1,0 +1,60 @@
+[
+  {
+    "name": "daily",
+    "time": {
+      "hours": [4]
+    },
+    "content": {
+      "title": "🕒 Dailes & Gathering Nodes Reset!",
+      "thumbnail": "https://i.postimg.cc/wT18Wq6k/unknown.png",
+      "message": "[(Click here to launch pso2)](https://cdn.arks-layer.com/Shared/index.php?tweaker=open&cmd=-pso2)"
+    }
+  },
+  {
+    "name": "weekly",
+    "time": {
+      "hours": [17],
+      "daysOfWeek": ["wednesday"]
+    },
+    "content": {
+      "title": "🕓 Weeklies have been reset!",
+      "thumbnail": "https://i.postimg.cc/wT18Wq6k/unknown.png",
+      "message": "[(Click here to launch pso2)](https://cdn.arks-layer.com/Shared/index.php?tweaker=open&cmd=-pso2)"
+    }
+  },
+  {
+    "name": "pso2-day",
+    "time": {
+      "hours": [0, 12, 23],
+      "days": [2, 22]
+    },
+    "content": {
+      "title": "✨ PSO2 DAY ✨",
+      "message": "• PSO2 day has just started. Enjoy bonuses both on NGS and PSO2! \n\n• Premium PSO2 day at 22nd\n\n[(Click here to launch pso2)](https://cdn.arks-layer.com/Shared/index.php?tweaker=open&cmd=-pso2)",
+      "fields": [
+        {
+          "name": "PSO2",
+          "value": "• Earned Fun +100% \n• Earned EXP +200% \n• Rare Drop Boost +200% \n\n• Gathering Fever Rate +100% \n• Rare Enemy Arks Rappy \n• Item Grind Success Rate +10% \n• Ability Affixing Success Rate +15% \n• NT Weapon Grind EXP +15%",
+          "inline": true
+        },
+        {
+          "name": "NGS",
+          "value": "• 22 SG ticket (x2) \n• Experiance Boost +5% \n• Rare Drop Boost +20%",
+          "inline": true
+        }
+      ]
+    }
+  },
+  {
+    "name": "weekly-task",
+    "time": {
+      "hours": [20],
+      "daysOfWeek": ["tuesday", "friday"]
+    },
+    "content": {
+      "title": "🕒 Weekly ToDo Llist",
+      "thumbnail": "https://i.postimg.cc/wT18Wq6k/unknown.png",
+      "message": "□ Weekly Task\n □ Item exchange : Team Badge ▷ Purple Trigger\n□ Item exchange : Gold Prim Sword ▷ Affix Success Rate +10"
+    }
+  }
+]

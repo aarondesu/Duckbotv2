@@ -8,6 +8,7 @@ import CommandHandler from './handlers/command-handler';
 import logger from '../lib/logger';
 import { token } from '../config';
 import EventHandler from './handlers/event-handler';
+import CronJobHandler from './handlers/cronjob-handler';
 
 export default class DuckbotClient extends Client {
   handlers: Collection<string, DuckbotHandler>;
@@ -29,10 +30,14 @@ export default class DuckbotClient extends Client {
 
     const eventHandler = new EventHandler(this, path.resolve(__dirname, '..', 'events'));
 
+    const cronjobHandler = new CronJobHandler(this, path.resolve(__dirname, '..', 'jobs'));
+
     eventHandler.setHandlerAsEmitter(commandHandler);
+    eventHandler.setHandlerAsEmitter(cronjobHandler);
 
     this.handlers.set(commandHandler.id, commandHandler);
     this.handlers.set(eventHandler.id, eventHandler);
+    this.handlers.set(cronjobHandler.id, cronjobHandler);
 
     return this;
   }
