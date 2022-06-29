@@ -24,6 +24,6 @@ export default class CommandModule extends DuckbotModule {
   // to be overriden
   // eslint-disable-next-line @typescript-eslint/require-await
   async exec(_interaction: Interaction) {
-    throw new Error(`Exec not yet implemented for ${this.id}`);
+    throw new Error(`Command ${this.constructor.name} exec not yet implemented.`);
   }
 }

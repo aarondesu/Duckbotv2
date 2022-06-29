@@ -26,6 +26,6 @@ export default class EventModule extends DuckbotModule {
   }
 
   exec(..._args: unknown[]) {
-    throw new Error(`Exec function not yet implemented for ${this.id}`);
+    throw new Error(`Event ${this.constructor.name} exec command not yet implemented.`);
   }
 }
