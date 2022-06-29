@@ -41,12 +41,18 @@ export default class CommandHandler extends DuckbotHandler {
     const rest = new REST({ version: '9' }).setToken(token);
 
     if (process.env.NODE_ENV === 'development') {
+      // Register to test server commands
       await rest
         .put(Routes.applicationGuildCommands(clientid, guildId), {
           body: commands,
         })
         .then(() => this.client.logger.info('Successfully registered application commands!'))
         .catch(({ stack }) => this.client.logger.error(`\n${stack as string}`));
+    } else {
+      // Register To global commands
+      await rest.put(Routes.applicationCommands(clientid), {
+        body: commands,
+      });
     }
   }
 
@@ -62,6 +68,6 @@ export default class CommandHandler extends DuckbotHandler {
 
     await command
       .exec(interaction)
-      .catch(({ stack }) => this.emit('commandError', command.id, stack, interaction));
+      .catch(({ stack }) => this.emit('commandError', command.constructor.name, stack, interaction));
   }
 }
