@@ -54,7 +54,7 @@ export default class ReminderJob extends CronJobModule {
     this.channels = new Collection<Snowflake, TextChannel>();
   }
 
-  init(): void {
+  init() {
     // Get data from JSON file
     const schedule: JSONDeclaration = [...json] as JSONDeclaration;
 
@@ -63,15 +63,15 @@ export default class ReminderJob extends CronJobModule {
     }
 
     const cache = this.client.channels.cache.filter((ch) => ch.type === 'GUILD_TEXT') as Collection<
-      Snowflake,
-      TextChannel
+    Snowflake,
+    TextChannel
     >;
 
     this.channels = cache.filter((ch) => ch.name === 'general');
   }
 
   // eslint-disable-next-line class-methods-use-this
-  exec(): void {
+  exec() {
     try {
       const sendMessage = [];
 
