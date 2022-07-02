@@ -24,7 +24,8 @@
   },
   {
     "name": "pso2-day",
-    "time": {
+    "time": {,
+      "days": [2, 22],
       "hours": [0, 12, 23]
     },
     "content": {

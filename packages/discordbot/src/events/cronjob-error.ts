@@ -10,6 +10,6 @@ export default class CronjobError extends EventModule {
   }
 
   exec(moduleName: string, stack: string): void {
-    this.client.logger.error(`Error occured on CronJob ${moduleName} \n${stack}`);
+    this.client.logger.error(`Error occured on Cron Job ${moduleName} \n${stack}`);
   }
 }
