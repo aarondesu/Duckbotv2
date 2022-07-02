@@ -63,8 +63,8 @@ export default class ReminderJob extends CronJobModule {
     }
 
     const cache = this.client.channels.cache.filter((ch) => ch.type === 'GUILD_TEXT') as Collection<
-    Snowflake,
-    TextChannel
+      Snowflake,
+      TextChannel
     >;
 
     this.channels = cache.filter((ch) => ch.name === 'general');

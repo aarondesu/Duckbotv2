@@ -1,6 +1,6 @@
 # Duckbotv2
 
-![Build Status](https://github.com/Shinudesu/DuckBot/actions/workflows/main.yml/badge.svg?branch=main)
+![Build Status](https://github.com/Shinudesu/DuckBotv2/actions/workflows/main.yml/badge.svg?branch=main)
 
 ## Requirements
 

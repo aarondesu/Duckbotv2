@@ -25,15 +25,25 @@ export const EmbedBuilderUtil = (options: EmbedBuilderUtilOptions) => {
   messageEmbed
     .setColor(options.color || 'GREY')
     .setTitle(options.title || '')
-    .setAuthor(options.author || '', options.icon || '', options.url || '')
     .setThumbnail(options.thumbnail || '')
     .setDescription(options.description || '')
     .setImage(options.image || '')
-    .setFooter(options.footer || '', options.footerIcon || '')
     .setURL(options.url || '');
 
   if (options.author) {
-    messageEmbed.setAuthor({ name: options.author });
+    if (options.icon !== undefined) {
+      messageEmbed.setAuthor({ name: options.author, iconURL: options.icon });
+    } else {
+      messageEmbed.setAuthor({ name: options.author });
+    }
+  }
+
+  if (options.footer) {
+    if (options.footerIcon !== undefined) {
+      messageEmbed.setFooter({ text: options.footer, iconURL: options.footerIcon });
+    } else {
+      messageEmbed.setFooter({ text: options.footer });
+    }
   }
 
   if (options.timestamp) messageEmbed.setTimestamp();
