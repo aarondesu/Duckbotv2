@@ -25,8 +25,7 @@
   {
     "name": "pso2-day",
     "time": {
-      "hours": [0, 12, 23],
-      "days": [2, 22]
+      "hours": [0, 12, 23]
     },
     "content": {
       "title": "✨ PSO2 DAY ✨",

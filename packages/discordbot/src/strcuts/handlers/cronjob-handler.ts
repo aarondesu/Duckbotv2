@@ -46,4 +46,8 @@ export default class CronJobHandler extends DuckbotHandler {
       this.client.logger.info(`Error initializing. ${stack as string}`);
     }
   }
+
+  emitError(module: CronJobModule, stack: string) {
+    this.emit('cronjobError', module.constructor.name, stack);
+  }
 }
