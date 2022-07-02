@@ -4,6 +4,21 @@
 
 ## Requirements
 
+### .env example
+
+```
+DETECTLANGUAGE_API_KEY=
+DISCORD_TOKEN=
+GUILD_DEV=
+RAPID_API_KEY=
+DATABASE_URL=
+REDDIT_SECRET_KEY=
+REDDIT_CLIENT_ID=
+REDDIT_REFRESH_TOKEN=
+REDDIT_ACCESS_TOKEN=
+
+```
+
 ## Getting started
 
 ```
