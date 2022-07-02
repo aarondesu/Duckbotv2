@@ -46,7 +46,7 @@ export default class ReminderJob extends CronJobModule {
 
   constructor() {
     super('reminder', {
-      schedule: '* * * * *',
+      schedule: '0 0 */1 * * *',
       timezone: 'Asia/Tokyo',
     });
 
@@ -71,7 +71,7 @@ export default class ReminderJob extends CronJobModule {
   }
 
   // eslint-disable-next-line class-methods-use-this
-  exec() {
+  async exec() {
     try {
       const sendMessage = [];
 
@@ -106,6 +106,8 @@ export default class ReminderJob extends CronJobModule {
           }
         }
       }
+
+      await Promise.all(sendMessage);
     } catch ({ stack }) {
       (this.handler as CronJobHandler).emitError(this, stack as string);
     }
