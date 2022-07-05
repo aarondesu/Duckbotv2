@@ -1,8 +1,7 @@
-/* eslint-disable no-param-reassign */
 /* eslint-disable @typescript-eslint/no-var-requires */
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 /* eslint-disable @typescript-eslint/no-unsafe-call */
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
+/* eslint-disable no-param-reassign */
 import { Collection } from 'discord.js';
 import { EventEmitter } from 'node:events';
 import fs from 'node:fs';
@@ -48,10 +47,7 @@ export default class DuckbotHandler extends EventEmitter {
       // Loads all modules from specified path
       const files = fs.readdirSync(this.directory).filter((file) => {
         const lastIndex = file.lastIndexOf('.');
-        return (
-          lastIndex !== 1
-          && this.extensions?.includes(file.substring(lastIndex))
-        );
+        return lastIndex !== 1 && this.extensions?.includes(file.substring(lastIndex));
       });
 
       for (const file of files) {
@@ -66,17 +62,13 @@ export default class DuckbotHandler extends EventEmitter {
         }
       }
     } catch ({ stack }) {
-      throw new Error(
-        `Error loading module ${this.id}\n Reason: ${stack as string}`,
-      );
+      throw new Error(`Error loading module ${this.id}\n Reason: ${stack as string}`);
     }
   }
 
   register(module: DuckbotModule, filePath: string): DuckbotModule {
     if (this.modules.has(module.id)) {
-      this.client.logger.error(
-        `${module.id} module already exists within ${this.id} !`,
-      );
+      this.client.logger.error(`${module.id} module already exists within ${this.id} !`);
       return null;
     }
 
