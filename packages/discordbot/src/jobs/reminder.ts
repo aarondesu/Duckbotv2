@@ -1,5 +1,6 @@
 /* eslint-disable no-continue */
 import { Collection, Snowflake, TextChannel } from 'discord.js';
+import moment from 'moment-timezone';
 
 import CronJobModule from '../structs/modules/cronjob-module';
 
@@ -52,7 +53,7 @@ export default class ReminderJob extends CronJobModule {
 
   constructor() {
     super('reminder', {
-      schedule: '* * * * *',
+      schedule: '0 0 */1 * * *',
       timezone: 'Asia/Tokyo',
     });
 
@@ -82,19 +83,34 @@ export default class ReminderJob extends CronJobModule {
       const sendMessage = [];
 
       for (const [, schedule] of this.reminders) {
-        const embed = EmbedBuilderUtil({
-          color: 'BLUE',
-          title: schedule.content.title,
-          description: schedule.content.message,
-          thumbnail: schedule.content.thumbnail,
-          image: schedule.content.image,
-          footer: { text: 'Daily reminder' },
-          timestamp: true,
-          fields: schedule.content.fields,
-        });
+        const currentTime = moment.tz(moment(), 'Asia/Tokyo');
 
-        for (const [, channel] of this.channels) {
-          sendMessage.push(channel.send({ embeds: [embed] }));
+        // Check if reminder has days set
+        if (schedule.time.days && schedule.time.days.length > 0) {
+          // Checks if the day doesn't include today, if not skip this reminder
+          if (!schedule.time.days?.includes(Number(currentTime.format('DD')))) continue;
+        }
+
+        // Check if reminder has day of week set
+        if (schedule.time.daysOfWeek && schedule.time.daysOfWeek?.length > 0) {
+          if (!schedule.time.daysOfWeek.includes(currentTime.format('dddd').toLowerCase() as Day)) continue;
+        }
+
+        if (schedule.time.hours.includes(Number(currentTime.format('HH')))) {
+          const embed = EmbedBuilderUtil({
+            color: 'BLUE',
+            title: schedule.content.title,
+            description: schedule.content.message,
+            thumbnail: schedule.content.thumbnail,
+            image: schedule.content.image,
+            footer: { text: 'Daily reminder' },
+            timestamp: true,
+            fields: schedule.content.fields,
+          });
+
+          for (const [, channel] of this.channels) {
+            sendMessage.push(channel.send({ embeds: [embed] }));
+          }
         }
       }
 
