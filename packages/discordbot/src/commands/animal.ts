@@ -4,7 +4,7 @@ import {
   CommandInteraction, Message, MessageActionRow, MessageSelectMenu,
 } from 'discord.js';
 
-import CommandModule from '../strcuts/modules/command-module';
+import CommandModule from '../structs/modules/command-module';
 import {
   bunny, cat, dog, duck, fox, panda,
 } from '../lib/animal-api';

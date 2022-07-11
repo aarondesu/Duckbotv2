@@ -1,6 +1,10 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { SlashCommandBuilder, SlashCommandNumberOption } from '@discordjs/builders';
+import {
+  SlashCommandBuilder,
+  SlashCommandNumberOption,
+  SlashCommandSubcommandsOnlyBuilder,
+} from '@discordjs/builders';
 import { Interaction } from 'discord.js';
 
 import DuckbotModule from '../duckbot-module';
@@ -10,11 +14,17 @@ export default class CommandModule extends DuckbotModule {
 
   permission: bigint;
 
-  data: SlashCommandNumberOption | Omit<SlashCommandBuilder, 'addSubcommand' | 'addSubcommandGroup'>;
+  data:
+  | SlashCommandNumberOption
+  | Omit<SlashCommandBuilder, 'addSubcommand' | 'addSubcommandGroup'>
+  | SlashCommandSubcommandsOnlyBuilder;
 
   constructor(
     id: string,
-    data?: SlashCommandNumberOption | Omit<SlashCommandBuilder, 'addSubcommand' | 'addSubcommandGroup'>,
+    data?:
+    | SlashCommandNumberOption
+    | Omit<SlashCommandBuilder, 'addSubcommand' | 'addSubcommandGroup'>
+    | SlashCommandSubcommandsOnlyBuilder,
   ) {
     super(id);
 

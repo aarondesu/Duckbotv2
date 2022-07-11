@@ -1,6 +1,6 @@
 import { CommandInteraction, MessageEmbed } from 'discord.js';
 
-import EventModule from '../strcuts/modules/event-module';
+import EventModule from '../structs/modules/event-module';
 
 export default class CommandErrorEvent extends EventModule {
   constructor() {
@@ -15,9 +15,7 @@ export default class CommandErrorEvent extends EventModule {
     errorStack: string,
     interaction: CommandInteraction,
   ): Promise<void> {
-    this.client.logger.error(
-      `Failed to process command "${comnmandName}". \nReason ${errorStack}`,
-    );
+    this.client.logger.error(`Failed to process command "${comnmandName}". \nReason ${errorStack}`);
 
     const embed = new MessageEmbed()
       .setColor('DARK_RED')

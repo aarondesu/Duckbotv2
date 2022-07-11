@@ -1,6 +1,6 @@
 import { SlashCommandBuilder } from '@discordjs/builders';
 import { CommandInteraction, MessageEmbed, User } from 'discord.js';
-import CommandModule from '../strcuts/modules/command-module';
+import CommandModule from '../structs/modules/command-module';
 
 export default class UserInfo extends CommandModule {
   constructor() {

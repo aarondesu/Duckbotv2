@@ -1,14 +1,20 @@
 /* eslint-disable no-continue */
 import { Collection, Snowflake, TextChannel } from 'discord.js';
-import moment from 'moment-timezone';
 
-import CronJobModule from '../strcuts/modules/cronjob-module';
+import CronJobModule from '../structs/modules/cronjob-module';
 
 import json from '../json/reminders.json';
-import CronJobHandler from '../strcuts/handlers/cronjob-handler';
+import CronJobHandler from '../structs/handlers/cronjob-handler';
 import { EmbedBuilderUtil } from '../lib/utils';
 
-declare type Day = 'monday' | 'tuesday' | 'wednesday' | 'thursday' | 'friday' | 'saturday' | 'sunday';
+declare type Day =
+  | 'monday'
+  | 'tuesday'
+  | 'wednesday'
+  | 'thursday'
+  | 'friday'
+  | 'saturday'
+  | 'sunday';
 
 interface Time {
   hours: number[];
@@ -46,7 +52,7 @@ export default class ReminderJob extends CronJobModule {
 
   constructor() {
     super('reminder', {
-      schedule: '0 0 */1 * * *',
+      schedule: '* * * * *',
       timezone: 'Asia/Tokyo',
     });
 
@@ -76,34 +82,19 @@ export default class ReminderJob extends CronJobModule {
       const sendMessage = [];
 
       for (const [, schedule] of this.reminders) {
-        const currentTime = moment.tz(moment(), 'Asia/Tokyo');
+        const embed = EmbedBuilderUtil({
+          color: 'BLUE',
+          title: schedule.content.title,
+          description: schedule.content.message,
+          thumbnail: schedule.content.thumbnail,
+          image: schedule.content.image,
+          footer: { text: 'Daily reminder' },
+          timestamp: true,
+          fields: schedule.content.fields,
+        });
 
-        // Check if reminder has days set
-        if (schedule.time.days && schedule.time.days.length > 0) {
-          // Checks if the day doesn't include today, if not skip this reminder
-          if (!schedule.time.days?.includes(Number(currentTime.format('DD')))) continue;
-        }
-
-        // Check if reminder has day of week set
-        if (schedule.time.daysOfWeek && schedule.time.daysOfWeek?.length > 0) {
-          if (!schedule.time.daysOfWeek.includes(currentTime.format('dddd').toLowerCase() as Day)) continue;
-        }
-
-        if (schedule.time.hours.includes(Number(currentTime.format('HH')))) {
-          const embed = EmbedBuilderUtil({
-            color: 'BLUE',
-            title: schedule.content.title,
-            description: schedule.content.message,
-            thumbnail: schedule.content.thumbnail,
-            image: schedule.content.image,
-            footer: 'Daily reminder',
-            timestamp: true,
-            fields: schedule.content.fields,
-          });
-
-          for (const [, channel] of this.channels) {
-            sendMessage.push(channel.send({ embeds: [embed] }));
-          }
+        for (const [, channel] of this.channels) {
+          sendMessage.push(channel.send({ embeds: [embed] }));
         }
       }
 
