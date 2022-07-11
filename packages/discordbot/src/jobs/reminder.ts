@@ -2,13 +2,20 @@
 import { Collection, Snowflake, TextChannel } from 'discord.js';
 import moment from 'moment-timezone';
 
-import CronJobModule from '../strcuts/modules/cronjob-module';
+import CronJobModule from '../structs/modules/cronjob-module';
 
 import json from '../json/reminders.json';
-import CronJobHandler from '../strcuts/handlers/cronjob-handler';
+import CronJobHandler from '../structs/handlers/cronjob-handler';
 import { EmbedBuilderUtil } from '../lib/utils';
 
-declare type Day = 'monday' | 'tuesday' | 'wednesday' | 'thursday' | 'friday' | 'saturday' | 'sunday';
+declare type Day =
+  | 'monday'
+  | 'tuesday'
+  | 'wednesday'
+  | 'thursday'
+  | 'friday'
+  | 'saturday'
+  | 'sunday';
 
 interface Time {
   hours: number[];

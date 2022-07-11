@@ -4,7 +4,7 @@ import { CommandInteraction, MessageEmbed } from 'discord.js';
 import DetectLanguage from 'detectlanguage';
 import axios, { AxiosRequestConfig } from 'axios';
 
-import CommandModule from '../strcuts/modules/command-module';
+import CommandModule from '../structs/modules/command-module';
 import { detectlanguageApi, rapidApiKey } from '../config';
 
 type DeepLTranslate = {

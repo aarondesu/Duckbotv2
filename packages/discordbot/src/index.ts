@@ -1,4 +1,4 @@
-import DuckbotClient from './strcuts/duckbot-client';
+import DuckbotClient from './structs/duckbot-client';
 
 const duckbot = new DuckbotClient();
 

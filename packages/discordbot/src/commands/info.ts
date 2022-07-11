@@ -1,11 +1,14 @@
 import { SlashCommandBuilder } from '@discordjs/builders';
 import { CommandInteraction, MessageEmbed } from 'discord.js';
 
-import CommandModule from '../strcuts/modules/command-module';
+import CommandModule from '../structs/modules/command-module';
 
 export default class InfoCommand extends CommandModule {
   constructor() {
-    super('info', new SlashCommandBuilder().setName('info').setDescription('Information about the bot'));
+    super(
+      'info',
+      new SlashCommandBuilder().setName('info').setDescription('Information about the bot'),
+    );
   }
 
   async exec(interaction: CommandInteraction): Promise<void> {

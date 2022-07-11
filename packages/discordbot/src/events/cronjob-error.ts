@@ -1,4 +1,4 @@
-import EventModule from '../strcuts/modules/event-module';
+import EventModule from '../structs/modules/event-module';
 
 export default class CronjobError extends EventModule {
   constructor() {
