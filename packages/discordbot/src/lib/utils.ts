@@ -1,3 +1,4 @@
+import { EmbedAuthorData, EmbedFooterData } from '@discordjs/builders';
 import { ColorResolvable, EmbedFieldData, MessageEmbed } from 'discord.js';
 
 export function dateToString(date: Date): string {
@@ -7,13 +8,13 @@ export function dateToString(date: Date): string {
 export interface EmbedBuilderUtilOptions {
   title: string;
   color?: ColorResolvable;
-  author?: string;
+  author?: EmbedAuthorData;
   icon?: string;
   thumbnail?: string;
   image?: string;
   description?: string;
   fields?: EmbedFieldData[];
-  footer?: string;
+  footer?: EmbedFooterData;
   footerIcon?: string;
   timestamp?: boolean;
   url?: string;
@@ -30,24 +31,10 @@ export const EmbedBuilderUtil = (options: EmbedBuilderUtilOptions) => {
     .setImage(options.image || '')
     .setURL(options.url || '');
 
-  if (options.author) {
-    if (options.icon !== undefined) {
-      messageEmbed.setAuthor({ name: options.author, iconURL: options.icon });
-    } else {
-      messageEmbed.setAuthor({ name: options.author });
-    }
-  }
-
-  if (options.footer) {
-    if (options.footerIcon !== undefined) {
-      messageEmbed.setFooter({ text: options.footer, iconURL: options.footerIcon });
-    } else {
-      messageEmbed.setFooter({ text: options.footer });
-    }
-  }
-
-  if (options.timestamp) messageEmbed.setTimestamp();
+  if (options.author) messageEmbed.setAuthor(options.author);
   if (options.fields) messageEmbed.addFields(options.fields);
+  if (options.footer) messageEmbed.setFooter(options.footer);
+  if (options.timestamp) messageEmbed.setTimestamp();
 
   return messageEmbed;
 };

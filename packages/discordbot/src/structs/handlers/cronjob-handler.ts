@@ -1,5 +1,6 @@
 import moment from 'moment-timezone';
-import cron from 'node-cron';
+import { CronJob } from 'cron';
+import { isValidCron } from 'cron-validator';
 
 import DuckbotClient from '../duckbot-client';
 import DuckbotHandler from '../duckbot-handler';
@@ -22,28 +23,32 @@ export default class CronJobHandler extends DuckbotHandler {
         const cronJob = data as CronJobModule;
         cronJob.init();
 
-        const valid = cron.validate(cronJob.schedule);
         const tz = cronJob.timezone;
 
         // Validate the time zone
         if (tz && !!moment.tz.zone(tz as string) === false) {
-          throw new Error('Invalid timezone! Please refer to https://momentjs.com/timezone/ for valid timezones.');
+          throw new Error(
+            'Invalid timezone! Please refer to https://momentjs.com/timezone/ for valid timezones.',
+          );
         }
 
-        if (valid) {
+        if (isValidCron(cronJob.schedule)) {
           // Schedule the cron
-          cronJob.task = cron.schedule(cronJob.schedule, () => cronJob.exec(), {
-            scheduled: true,
-            timezone: cronJob.timezone,
-          });
+          cronJob.task = new CronJob(
+            cronJob.schedule,
+            () => cronJob.exec(),
+            null,
+            false,
+            cronJob.timezone,
+          );
 
           cronJob.task.start();
         } else {
-          throw new Error('Invalid cron job schedule. Please check https://www.npmjs.com/package/node-cron');
+          throw new Error('Invalid cron job schedule. Please check https://crontab.guru/');
         }
       }
     } catch ({ stack }) {
-      this.client.logger.info(`Error initializing. ${stack as string}`);
+      this.client.logger.info(stack as string);
     }
   }
 

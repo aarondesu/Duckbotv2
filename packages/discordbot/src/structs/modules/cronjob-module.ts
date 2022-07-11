@@ -1,5 +1,5 @@
-import { ScheduledTask } from 'node-cron';
 import { Timezone } from 'tz-offset';
+import { CronJob } from 'cron';
 
 import DuckbotModule from '../duckbot-module';
 
@@ -11,9 +11,9 @@ interface CronJobOptions {
 export default class CronJobModule extends DuckbotModule {
   schedule: string;
 
-  timezone: Timezone = 'Africa/Algiers';
+  timezone: Timezone;
 
-  task: ScheduledTask | undefined;
+  task: CronJob;
 
   constructor(id: string, options?: CronJobOptions) {
     super(id);

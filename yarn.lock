@@ -99,13 +99,15 @@ __metadata:
     "@discordjs/rest": ^0.5.0
     "@heroku-cli/color": ^1.1.14
     "@types/common-tags": ^1.8.1
+    "@types/cron": ^2.0.0
     "@types/node": ^18.0.0
-    "@types/node-cron": ^3.0.1
     "@types/tz-offset": ^0.0.0
     "@types/winston": ^2.4.4
     axios: ^0.27.2
     chalk: ^5.0.1
     common-tags: ^1.8.2
+    cron: ^2.0.0
+    cron-validator: ^1.3.1
     cross-env: ^7.0.3
     dayjs: ^1.11.3
     detectlanguage: ^2.1.0
@@ -115,7 +117,6 @@ __metadata:
     moment: ^2.29.3
     moment-timezone: ^0.5.34
     ms: ^2.1.3
-    node-cron: ^3.0.1
     pino: ^8.1.0
     snoowrap: ^1.23.0
     tz-offset: ^0.0.2
@@ -233,6 +234,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/cron@npm:^2.0.0":
+  version: 2.0.0
+  resolution: "@types/cron@npm:2.0.0"
+  dependencies:
+    "@types/luxon": "*"
+    "@types/node": "*"
+  checksum: 392d2cfca51504140397533c30be8facd2196251074eb26ee09232a7e983144ff1d8364cd64922ed22d142686a4724934a70672fc8353b441fea729ac0ed0611
+  languageName: node
+  linkType: hard
+
 "@types/json-schema@npm:^7.0.9":
   version: 7.0.11
   resolution: "@types/json-schema@npm:7.0.11"
@@ -247,10 +258,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node-cron@npm:^3.0.1":
-  version: 3.0.1
-  resolution: "@types/node-cron@npm:3.0.1"
-  checksum: c93887daef8064b92122c3baf5a3f058bafb70a600f432665dd2684ef8539f7796fd731b3b35b54daad7faef88f87b56fc3236b8e69ce021a364ba2e8f30e51e
+"@types/luxon@npm:*":
+  version: 2.3.2
+  resolution: "@types/luxon@npm:2.3.2"
+  checksum: b9fe79118681f4bb9f2e37696a7df992a82683ba4448e7ad1af8cc241443ffc64ef08fdeaad749de9e6259b42b0d4b6540d7e880bca39bb504e0f3863d503c98
   languageName: node
   linkType: hard
 
@@ -840,6 +851,22 @@ __metadata:
   version: 1.0.2
   resolution: "core-util-is@npm:1.0.2"
   checksum: 7a4c925b497a2c91421e25bf76d6d8190f0b2359a9200dbeed136e63b2931d6294d3b1893eda378883ed363cd950f44a12a401384c609839ea616befb7927dab
+  languageName: node
+  linkType: hard
+
+"cron-validator@npm:^1.3.1":
+  version: 1.3.1
+  resolution: "cron-validator@npm:1.3.1"
+  checksum: 82895b417bc35a96c8ad8501d2f236492403ba6e35c1112762e9573939eb15cd80bd0693d5ae95e3a15e15fc6442b1a6e6cc3dd0f740f0a3320b202082aeabec
+  languageName: node
+  linkType: hard
+
+"cron@npm:^2.0.0":
+  version: 2.0.0
+  resolution: "cron@npm:2.0.0"
+  dependencies:
+    luxon: ^1.23.x
+  checksum: 179ec137ada4ceb44cafe51c55491e84954308d7012d2a44539f0dadbbb1ffbbe3072c2f7aaa88595d60bd56e0d536aae2e4aaa4430c869317d6c2abd966988b
   languageName: node
   linkType: hard
 
@@ -2210,6 +2237,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"luxon@npm:^1.23.x":
+  version: 1.28.0
+  resolution: "luxon@npm:1.28.0"
+  checksum: 5250cb9f138b6048eeb0b3a9044a4ac994d0058f680c72a0da4b6aeaec8612460385639cba2b1052ef6d5564879e9ed144d686f26d9d97b38ab920d82e18281c
+  languageName: node
+  linkType: hard
+
 "merge2@npm:^1.3.0, merge2@npm:^1.4.1":
   version: 1.4.1
   resolution: "merge2@npm:1.4.1"
@@ -2300,13 +2334,6 @@ __metadata:
   version: 1.4.0
   resolution: "natural-compare@npm:1.4.0"
   checksum: 23ad088b08f898fc9b53011d7bb78ec48e79de7627e01ab5518e806033861bef68d5b0cd0e2205c2f36690ac9571ff6bcb05eb777ced2eeda8d4ac5b44592c3d
-  languageName: node
-  linkType: hard
-
-"node-cron@npm:^3.0.1":
-  version: 3.0.1
-  resolution: "node-cron@npm:3.0.1"
-  checksum: 98636a3d4373d48b5c7f5b922c93d22ca81a4bd38284f264812c7b88f06c995eb9ccde34ee2753cbec9bf5b77bd220c817c18ca82de504e3e324df9af6983b5d
   languageName: node
   linkType: hard
 
