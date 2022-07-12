@@ -47,12 +47,15 @@ export default class CommandHandler extends DuckbotHandler {
           body: commands,
         })
         .then(() => this.client.logger.info('Successfully registered application commands!'))
-        .catch(({ stack }) => this.client.logger.error(`\n${stack as string}`));
+        .catch(({ stack }) => this.client.logger.error(stack as string));
     } else {
       // Register To global commands
-      await rest.put(Routes.applicationCommands(clientid), {
-        body: commands,
-      });
+      await rest
+        .put(Routes.applicationCommands(clientid), {
+          body: commands,
+        })
+        .then(() => this.client.logger.info('Successfully registered global commands!'))
+        .catch(({ stack }) => this.client.logger.error(stack as string));
     }
   }
 
@@ -68,6 +71,10 @@ export default class CommandHandler extends DuckbotHandler {
 
     await command
       .exec(interaction)
-      .catch(({ stack }) => this.emit('commandError', command.constructor.name, stack, interaction));
+      .catch((error: Error) => this.emitError(command, error, interaction));
+  }
+
+  emitError(command: CommandModule, error: Error, interaction: Interaction) {
+    this.emit('commandError', command.constructor.name, error, interaction);
   }
 }

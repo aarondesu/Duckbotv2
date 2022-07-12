@@ -1,6 +1,7 @@
-import { CommandInteraction, MessageEmbed } from 'discord.js';
+import { CommandInteraction } from 'discord.js';
 
 import EventModule from '../structs/modules/event-module';
+import { EmbedBuilderUtil } from '../lib/utils';
 
 export default class CommandErrorEvent extends EventModule {
   constructor() {
@@ -10,19 +11,16 @@ export default class CommandErrorEvent extends EventModule {
     });
   }
 
-  async exec(
-    comnmandName: string,
-    errorStack: string,
-    interaction: CommandInteraction,
-  ): Promise<void> {
-    this.client.logger.error(`Failed to process command "${comnmandName}". \nReason ${errorStack}`);
+  async exec(commandName: string, error: Error, interaction: CommandInteraction): Promise<void> {
+    // Emit internal error for logging
+    this.client.emit('internalError', error);
 
-    const embed = new MessageEmbed()
-      .setColor('DARK_RED')
-      .setTitle('Oops and error has occured!')
-      .setDescription(`Failed to process command "${comnmandName}"`)
-      .setFooter({ text: 'Command Eror' })
-      .setTimestamp();
+    const embed = EmbedBuilderUtil({
+      color: 'DARK_RED',
+      title: 'Oops an error has occured!',
+      description: `Failed to process command ${commandName}`,
+      timestamp: true,
+    });
 
     if (interaction.deferred) {
       await interaction.editReply({ embeds: [embed] });

@@ -4,6 +4,7 @@ import {
   CommandInteraction, Message, MessageActionRow, MessageSelectMenu,
 } from 'discord.js';
 
+import CommandHandler from '../structs/handlers/command-handler';
 import CommandModule from '../structs/modules/command-module';
 import {
   bunny, cat, dog, duck, fox, panda,
@@ -91,8 +92,14 @@ export default class AnimalCommand extends CommandModule {
     collector.on('collect', async (i) => {
       if (i.user.id !== interaction.user.id && !i.isSelectMenu()) return;
 
-      const animal = i.values?.toString();
-      const result = await AnimalCommand.getResult(animal);
+      let result: string;
+
+      try {
+        const animal = i.values?.toString();
+        result = await AnimalCommand.getResult(animal);
+      } catch (error) {
+        (this.handler as CommandHandler).emitError(this, error as Error, interaction);
+      }
 
       if (!result) {
         await interaction.editReply('Unable to retrieve animal');
