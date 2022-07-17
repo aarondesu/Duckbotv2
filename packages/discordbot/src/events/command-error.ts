@@ -11,7 +11,7 @@ export default class CommandErrorEvent extends EventModule {
     });
   }
 
-  async exec(commandName: string, error: Error, interaction: CommandInteraction): Promise<void> {
+  async exec(commandName: string, error: Error, interaction: CommandInteraction) {
     // Emit internal error for logging
     this.client.emit('internalError', error);
 

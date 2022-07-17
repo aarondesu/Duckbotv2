@@ -53,7 +53,7 @@ export default class ReminderJob extends CronJobModule {
 
   constructor() {
     super('reminder', {
-      schedule: '0 0 */1 * * *',
+      schedule: '0 */1 * * *',
       timezone: 'Asia/Tokyo',
     });
 

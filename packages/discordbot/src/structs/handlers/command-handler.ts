@@ -69,9 +69,7 @@ export default class CommandHandler extends DuckbotHandler {
       await interaction.reply(`Failed to use command ${commandName}`);
     }
 
-    await command
-      .exec(interaction)
-      .catch((error: Error) => this.emitError(command, error, interaction));
+    await command.exec(interaction);
   }
 
   emitError(command: CommandModule, error: Error, interaction: Interaction) {

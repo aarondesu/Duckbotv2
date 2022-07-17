@@ -27,9 +27,7 @@ export default class DuckbotClient extends Client {
 
   init() {
     const commandHandler = new CommandHandler(this, path.resolve(__dirname, '..', 'commands'));
-
     const eventHandler = new EventHandler(this, path.resolve(__dirname, '..', 'events'));
-
     const cronjobHandler = new CronJobHandler(this, path.resolve(__dirname, '..', 'jobs'));
 
     eventHandler.setHandlerAsEmitter(commandHandler);
