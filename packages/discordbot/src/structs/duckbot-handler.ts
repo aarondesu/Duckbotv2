@@ -5,7 +5,6 @@
 import { Collection } from 'discord.js';
 import { EventEmitter } from 'node:events';
 import fs from 'node:fs';
-import Module from 'node:module';
 import path from 'node:path';
 
 import DuckbotClient from './duckbot-client';
@@ -53,7 +52,7 @@ export default class DuckbotHandler extends EventEmitter {
       for (const file of files) {
         const filePath = path.join(this.directory, file);
         // eslint-disable-next-line global-require
-        const module = new (require(filePath).default)() as Module;
+        const module = new (require(filePath).default)() as DuckbotModule;
 
         if (module instanceof this.classToHandle) {
           this.register(module, filePath);

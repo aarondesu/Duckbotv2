@@ -4,6 +4,7 @@ import { CommandInteraction, MessageEmbed } from 'discord.js';
 import DetectLanguage from 'detectlanguage';
 import axios, { AxiosRequestConfig } from 'axios';
 
+import CommandHandler from '../structs/handlers/command-handler';
 import CommandModule from '../structs/modules/command-module';
 import { detectlanguageApi, rapidApiKey } from '../config';
 
@@ -38,17 +39,12 @@ export default class TranslateCommand extends CommandModule {
   async detectLanguage(textToTranslate: string) {
     this.client.logger.http('Requesting language code from detectlanguage.com...');
 
-    try {
-      const result = await this.languageApi.detect(textToTranslate);
-      const langSource = result.pop()?.language;
+    const result = await this.languageApi.detect(textToTranslate);
+    const langSource = result.pop()?.language;
 
-      this.client.logger.http(`Detected lanaguage as ${langSource}`);
+    this.client.logger.http(`Detected lanaguage as ${langSource}`);
 
-      return langSource;
-    } catch ({ message }) {
-      this.client.logger.error('DetectLanguage API call Failed');
-      throw new Error(message as string);
-    }
+    return langSource;
   }
 
   async translateText(sourceText: string, sourceLang: string, targetLang: string) {
@@ -69,15 +65,10 @@ export default class TranslateCommand extends CommandModule {
       },
     };
 
-    try {
-      const result = await axios.request<DeepLTranslate>(requestConf);
-      this.client.logger.http('Successfully recieved data from deepL api!');
+    const result = await axios.request<DeepLTranslate>(requestConf);
+    this.client.logger.http('Successfully recieved data from deepL api!');
 
-      return result.data.data.translations.translatedText;
-    } catch ({ message }) {
-      this.client.logger.error('DetectLanguage API call Failed');
-      throw new Error(message as string);
-    }
+    return result.data.data.translations.translatedText;
   }
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -87,25 +78,29 @@ export default class TranslateCommand extends CommandModule {
 
     await interaction.deferReply();
 
+    let detectedLang: string;
+    let translatedText: string;
+
     try {
-      const detectedLang = await this.detectLanguage(sourceText);
-      const translatedText = await this.translateText(
+      detectedLang = await this.detectLanguage(sourceText);
+      translatedText = await this.translateText(
         sourceText,
         detectedLang.toUpperCase(),
         targetLang.toUpperCase(),
       );
+    } catch (error) {
+      (this.handler as CommandHandler).emitError(this, error as Error, interaction);
+    }
 
-      await interaction.editReply({
+    await interaction
+      .editReply({
         embeds: [
           new MessageEmbed()
             .setDescription(translatedText)
             .setTimestamp()
             .setFooter({ text: 'Translated using DeepL' }),
         ],
-      });
-    } catch ({ message, stack }) {
-      this.client.logger.error(`Failed to translate. Reason: \n${stack as string}`);
-      await interaction.editReply(`Failed to translate. Reason\n${message as string}`);
-    }
+      })
+      .catch((err: Error) => (this.handler as CommandHandler).emitError(this, err, interaction));
   }
 }

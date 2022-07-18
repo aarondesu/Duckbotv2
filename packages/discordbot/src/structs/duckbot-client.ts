@@ -1,7 +1,6 @@
 import { Client, Collection, Intents } from 'discord.js';
 import { Logger } from 'winston';
 import path from 'node:path';
-import moment from 'moment-timezone';
 
 import DuckbotHandler from './duckbot-handler';
 import CommandHandler from './handlers/command-handler';
@@ -10,8 +9,6 @@ import logger from '../lib/logger';
 import { token } from '../config';
 import EventHandler from './handlers/event-handler';
 import CronJobHandler from './handlers/cronjob-handler';
-
-logger.info(moment.tz());
 
 export default class DuckbotClient extends Client {
   handlers: Collection<string, DuckbotHandler>;
@@ -30,9 +27,7 @@ export default class DuckbotClient extends Client {
 
   init() {
     const commandHandler = new CommandHandler(this, path.resolve(__dirname, '..', 'commands'));
-
     const eventHandler = new EventHandler(this, path.resolve(__dirname, '..', 'events'));
-
     const cronjobHandler = new CronJobHandler(this, path.resolve(__dirname, '..', 'jobs'));
 
     eventHandler.setHandlerAsEmitter(commandHandler);
