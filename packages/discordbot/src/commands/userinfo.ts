@@ -1,5 +1,7 @@
 import { SlashCommandBuilder } from '@discordjs/builders';
 import { CommandInteraction, MessageEmbed, User } from 'discord.js';
+
+import CommandHandler from '../structs/handlers/command-handler';
 import CommandModule from '../structs/modules/command-module';
 
 export default class UserInfo extends CommandModule {
@@ -63,9 +65,8 @@ export default class UserInfo extends CommandModule {
       await interaction.editReply({
         embeds: [embed],
       });
-    } catch ({ message }) {
-      this.client.logger.error(`Userinfo error occured ${message as string}`);
-      await interaction.editReply(`Error occured: ${message as string}`);
+    } catch (error) {
+      (this.handler as CommandHandler).emitError(this, error as Error, interaction);
     }
   }
 }
